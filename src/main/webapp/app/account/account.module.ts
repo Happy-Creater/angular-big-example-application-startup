@@ -5,10 +5,10 @@ import { GreatBigExampleApplicationSharedModule } from '../shared';
 
 import {
     Register,
-    ActivateService,
-    PasswordService,
-    PasswordResetInitService,
-    PasswordResetFinishService,
+    Activate,
+    Password,
+    PasswordResetInit,
+    PasswordResetFinish,
     PasswordStrengthBarComponent,
     RegisterComponent,
     ActivateComponent,
@@ -39,10 +39,10 @@ import {
     ],
     providers: [
         Register,
-        ActivateService,
-        PasswordService,
-        PasswordResetInitService,
-        PasswordResetFinishService
+        Activate,
+        Password,
+        PasswordResetInit,
+        PasswordResetFinish
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

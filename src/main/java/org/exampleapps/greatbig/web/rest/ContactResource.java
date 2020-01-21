@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,7 +32,7 @@ public class ContactResource {
     private final Logger log = LoggerFactory.getLogger(ContactResource.class);
 
     private static final String ENTITY_NAME = "contact";
-
+        
     private final ContactRepository contactRepository;
 
     private final ContactSearchRepository contactSearchRepository;
@@ -70,7 +69,7 @@ public class ContactResource {
      * @param contact the contact to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated contact,
      * or with status 400 (Bad Request) if the contact is not valid,
-     * or with status 500 (Internal Server Error) if the contact couldn't be updated
+     * or with status 500 (Internal Server Error) if the contact couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/contacts")
@@ -96,7 +95,8 @@ public class ContactResource {
     @Timed
     public List<Contact> getAllContacts() {
         log.debug("REST request to get all Contacts");
-        return contactRepository.findAll();
+        List<Contact> contacts = contactRepository.findAll();
+        return contacts;
     }
 
     /**
@@ -132,7 +132,7 @@ public class ContactResource {
      * SEARCH  /_search/contacts?query=:query : search for the contact corresponding
      * to the query.
      *
-     * @param query the query of the contact search
+     * @param query the query of the contact search 
      * @return the result of the search
      */
     @GetMapping("/_search/contacts")
@@ -143,5 +143,6 @@ public class ContactResource {
             .stream(contactSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+
 
 }

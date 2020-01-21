@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Note } from './note.model';
 import { NotePopupService } from './note-popup.service';
@@ -22,9 +22,9 @@ export class NoteDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
+        private alertService: AlertService,
         private noteService: NoteService,
-        private eventManager: JhiEventManager
+        private eventManager: EventManager
     ) {
     }
 
@@ -32,7 +32,6 @@ export class NoteDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
-
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -41,24 +40,19 @@ export class NoteDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.note.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.noteService.update(this.note), false);
+                this.noteService.update(this.note));
         } else {
             this.subscribeToSaveResponse(
-                this.noteService.create(this.note), true);
+                this.noteService.create(this.note));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Note>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Note>) {
         result.subscribe((res: Note) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Note, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.note.created'
-            : 'greatBigExampleApplicationApp.note.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Note) {
         this.eventManager.broadcast({ name: 'noteListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

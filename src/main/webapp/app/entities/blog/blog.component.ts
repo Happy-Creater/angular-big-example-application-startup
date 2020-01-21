@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
+import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
 import { Blog } from './blog.model';
 import { BlogService } from './blog.service';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -20,8 +21,8 @@ blogs: Blog[];
 
     constructor(
         private blogService: BlogService,
-        private alertService: JhiAlertService,
-        private eventManager: JhiEventManager,
+        private alertService: AlertService,
+        private eventManager: EventManager,
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
@@ -33,17 +34,17 @@ blogs: Blog[];
             this.blogService.search({
                 query: this.currentSearch,
                 }).subscribe(
-                    (res: ResponseWrapper) => this.blogs = res.json,
-                    (res: ResponseWrapper) => this.onError(res.json)
+                    (res: Response) => this.blogs = res.json(),
+                    (res: Response) => this.onError(res.json())
                 );
             return;
        }
         this.blogService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.blogs = res.json;
+            (res: Response) => {
+                this.blogs = res.json();
                 this.currentSearch = '';
             },
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: Response) => this.onError(res.json())
         );
     }
 

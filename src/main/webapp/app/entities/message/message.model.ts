@@ -1,6 +1,4 @@
-import { BaseEntity } from './../../shared';
-
-export class Message implements BaseEntity {
+export class Message {
     constructor(
         public id?: number,
         public userLogin?: string,

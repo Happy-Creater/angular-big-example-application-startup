@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Blog } from './blog.model';
 import { BlogService } from './blog.service';
-
 @Injectable()
 export class BlogPopupService {
     private isOpen = false;

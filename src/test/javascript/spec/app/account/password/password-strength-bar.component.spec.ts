@@ -12,8 +12,11 @@ describe('Component Tests', () => {
         beforeEach(async(() => {
             TestBed.configureTestingModule({
                 declarations: [PasswordStrengthBarComponent]
-            }).overrideTemplate(PasswordStrengthBarComponent, '')
-            .compileComponents();
+            }).overrideComponent(PasswordStrengthBarComponent, {
+                set: {
+                    template: ''
+                }
+            }).compileComponents();
         }));
 
         beforeEach(() => {
@@ -47,3 +50,4 @@ describe('Component Tests', () => {
         });
     });
 });
+

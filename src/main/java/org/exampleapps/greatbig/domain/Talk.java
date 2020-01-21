@@ -25,15 +25,15 @@ public class Talk implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    // @NotNull  could be null if only setting youRating
+    @NotNull
     @Column(name = "title", nullable = false)
     private String title;
 
-    // @NotNull  could be null if only setting youRating
+    @NotNull
     @Column(name = "speaker", nullable = false)
     private String speaker;
 
-    // @NotNull  could be null if only setting youRating
+    @NotNull
     @Lob
     @Column(name = "description", nullable = false)
     private String description;

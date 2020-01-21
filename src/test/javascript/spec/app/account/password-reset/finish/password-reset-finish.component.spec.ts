@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoginModalService } from '../../../../../../../main/webapp/app/shared';
 import { GreatBigExampleApplicationTestModule } from '../../../../test.module';
 import { PasswordResetFinishComponent } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.component';
-import { PasswordResetFinishService } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.service';
+import { PasswordResetFinish } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.service';
 import { MockActivatedRoute } from '../../../../helpers/mock-route.service';
 
 
@@ -20,7 +20,7 @@ describe('Component Tests', () => {
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [PasswordResetFinishComponent],
                 providers: [
-                    PasswordResetFinishService,
+                    PasswordResetFinish,
                     {
                         provide: LoginModalService,
                         useValue: null
@@ -40,8 +40,11 @@ describe('Component Tests', () => {
                         useValue: new ElementRef(null)
                     }
                 ]
-            }).overrideTemplate(PasswordResetFinishComponent, '')
-            .createComponent(PasswordResetFinishComponent);
+            }).overrideComponent(PasswordResetFinishComponent, {
+                set: {
+                    template: ''
+                }
+            }).createComponent(PasswordResetFinishComponent);
             comp = fixture.componentInstance;
         });
 

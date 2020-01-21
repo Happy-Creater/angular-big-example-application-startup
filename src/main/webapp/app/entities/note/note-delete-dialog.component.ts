@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { Note } from './note.model';
 import { NotePopupService } from './note-popup.service';
@@ -19,8 +19,7 @@ export class NoteDeleteDialogComponent {
     constructor(
         private noteService: NoteService,
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
-        private eventManager: JhiEventManager
+        private eventManager: EventManager
     ) {
     }
 
@@ -36,7 +35,6 @@ export class NoteDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('greatBigExampleApplicationApp.note.deleted', { param : id }, null);
     }
 }
 

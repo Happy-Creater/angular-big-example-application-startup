@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,7 +32,7 @@ public class RebuttalResource {
     private final Logger log = LoggerFactory.getLogger(RebuttalResource.class);
 
     private static final String ENTITY_NAME = "rebuttal";
-
+        
     private final RebuttalRepository rebuttalRepository;
 
     private final RebuttalSearchRepository rebuttalSearchRepository;
@@ -70,7 +69,7 @@ public class RebuttalResource {
      * @param rebuttal the rebuttal to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated rebuttal,
      * or with status 400 (Bad Request) if the rebuttal is not valid,
-     * or with status 500 (Internal Server Error) if the rebuttal couldn't be updated
+     * or with status 500 (Internal Server Error) if the rebuttal couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/rebuttals")
@@ -96,7 +95,8 @@ public class RebuttalResource {
     @Timed
     public List<Rebuttal> getAllRebuttals() {
         log.debug("REST request to get all Rebuttals");
-        return rebuttalRepository.findAll();
+        List<Rebuttal> rebuttals = rebuttalRepository.findAll();
+        return rebuttals;
     }
 
     /**
@@ -132,7 +132,7 @@ public class RebuttalResource {
      * SEARCH  /_search/rebuttals?query=:query : search for the rebuttal corresponding
      * to the query.
      *
-     * @param query the query of the rebuttal search
+     * @param query the query of the rebuttal search 
      * @return the result of the search
      */
     @GetMapping("/_search/rebuttals")
@@ -143,5 +143,6 @@ public class RebuttalResource {
             .stream(rebuttalSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+
 
 }

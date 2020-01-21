@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Talk } from './talk.model';
 import { TalkService } from './talk.service';
-
 @Injectable()
 export class TalkPopupService {
     private isOpen = false;

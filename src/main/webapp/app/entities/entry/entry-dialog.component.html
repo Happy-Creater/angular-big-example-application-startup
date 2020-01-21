@@ -15,7 +15,8 @@
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="greatBigExampleApplicationApp.entry.title" for="field_title">Title</label>
             <input type="text" class="form-control" name="title" id="field_title"
-                [(ngModel)]="entry.title" required />
+                [(ngModel)]="entry.title"
+            required />
             <div [hidden]="!(editForm.controls.title?.dirty && editForm.controls.title?.invalid)">
                 <small class="form-text text-danger"
                    [hidden]="!editForm.controls.title?.errors?.required" jhiTranslate="entity.validation.required">
@@ -37,7 +38,8 @@
                 <input type="file" (change)="setFileData($event, entry, 'content', false)" jhiTranslate="entity.action.addblob"/>
             </div>
             <input type="hidden" class="form-control" name="content" id="field_content"
-                [(ngModel)]="entry.content" required />
+                [(ngModel)]="entry.content"
+            required />
             <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
                 [(ngModel)]="entry.contentContentType" />
             <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">

@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { JhiDateUtils, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
+import { DateUtils, DataUtils, EventManager } from 'ng-jhipster';
 import { GreatBigExampleApplicationTestModule } from '../../../test.module';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { ClaimDetailComponent } from '../../../../../../main/webapp/app/entities/claim/claim-detail.component';
@@ -22,18 +22,21 @@ describe('Component Tests', () => {
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [ClaimDetailComponent],
                 providers: [
-                    JhiDateUtils,
-                    JhiDataUtils,
+                    DateUtils,
+                    DataUtils,
                     DatePipe,
                     {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({id: 123})
                     },
                     ClaimService,
-                    JhiEventManager
+                    EventManager
                 ]
-            }).overrideTemplate(ClaimDetailComponent, '')
-            .compileComponents();
+            }).overrideComponent(ClaimDetailComponent, {
+                set: {
+                    template: ''
+                }
+            }).compileComponents();
         }));
 
         beforeEach(() => {

@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Message } from './message.model';
 import { MessagePopupService } from './message-popup.service';
@@ -22,9 +22,9 @@ export class MessageDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
+        private alertService: AlertService,
         private messageService: MessageService,
-        private eventManager: JhiEventManager
+        private eventManager: EventManager
     ) {
     }
 
@@ -32,7 +32,6 @@ export class MessageDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
-
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -41,24 +40,19 @@ export class MessageDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.message.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.messageService.update(this.message), false);
+                this.messageService.update(this.message));
         } else {
             this.subscribeToSaveResponse(
-                this.messageService.create(this.message), true);
+                this.messageService.create(this.message));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Message>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Message>) {
         result.subscribe((res: Message) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Message, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.message.created'
-            : 'greatBigExampleApplicationApp.message.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Message) {
         this.eventManager.broadcast({ name: 'messageListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

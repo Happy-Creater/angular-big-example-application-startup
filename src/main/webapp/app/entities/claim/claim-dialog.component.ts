@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Claim } from './claim.model';
 import { ClaimPopupService } from './claim-popup.service';
@@ -22,9 +22,9 @@ export class ClaimDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
+        private alertService: AlertService,
         private claimService: ClaimService,
-        private eventManager: JhiEventManager
+        private eventManager: EventManager
     ) {
     }
 
@@ -32,7 +32,6 @@ export class ClaimDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
-
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -41,24 +40,19 @@ export class ClaimDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.claim.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.claimService.update(this.claim), false);
+                this.claimService.update(this.claim));
         } else {
             this.subscribeToSaveResponse(
-                this.claimService.create(this.claim), true);
+                this.claimService.create(this.claim));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Claim>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Claim>) {
         result.subscribe((res: Claim) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Claim, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.claim.created'
-            : 'greatBigExampleApplicationApp.claim.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Claim) {
         this.eventManager.broadcast({ name: 'claimListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

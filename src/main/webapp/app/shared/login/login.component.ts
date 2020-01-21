@@ -1,7 +1,7 @@
-import { Component, AfterViewInit, Renderer, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { JhiEventManager } from 'ng-jhipster';
+import { JhiLanguageService, EventManager } from 'ng-jhipster';
 
 import { LoginService } from './login.service';
 import { StateStorageService } from '../auth/state-storage.service';
@@ -9,15 +9,9 @@ import { SocialService } from '../social/social.service';
 
 @Component({
     selector: 'jhi-login-modal',
-    templateUrl: './login.component.html',
-    styles: [`
-    :host {
-      background-color: grey;
-    }
-    `
-    ]
+    templateUrl: './login.component.html'
 })
-export class JhiLoginModalComponent implements AfterViewInit {
+export class JhiLoginModalComponent implements OnInit, AfterViewInit {
     authenticationError: boolean;
     password: string;
     rememberMe: boolean;
@@ -25,7 +19,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
     credentials: any;
 
     constructor(
-        private eventManager: JhiEventManager,
+        private eventManager: EventManager,
+        private languageService: JhiLanguageService,
         private loginService: LoginService,
         private stateStorageService: StateStorageService,
         private elementRef: ElementRef,
@@ -35,6 +30,10 @@ export class JhiLoginModalComponent implements AfterViewInit {
         public activeModal: NgbActiveModal
     ) {
         this.credentials = {};
+    }
+
+    ngOnInit() {
+        this.languageService.addLocation('login');
     }
 
     ngAfterViewInit() {

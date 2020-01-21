@@ -1,6 +1,4 @@
-import { BaseEntity } from './../../shared';
-
-export class Talk implements BaseEntity {
+export class Talk {
     constructor(
         public id?: number,
         public title?: string,

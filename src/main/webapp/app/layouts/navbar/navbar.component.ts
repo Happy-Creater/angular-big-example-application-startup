@@ -7,7 +7,6 @@ import { ProfileService } from '../profiles/profile.service';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from '../../shared';
 
 import { VERSION, DEBUG_INFO_ENABLED } from '../../app.constants';
-import { FeatureMeta, FeaturesService } from '../../features/features.service';
 
 @Component({
     selector: 'jhi-navbar',
@@ -24,13 +23,11 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
-    features: FeatureMeta[] = [];
 
     constructor(
-        private featuresService: FeaturesService,
         private loginService: LoginService,
-        private languageService: JhiLanguageService,
         private languageHelper: JhiLanguageHelper,
+        private languageService: JhiLanguageService,
         private principal: Principal,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
@@ -38,6 +35,7 @@ export class NavbarComponent implements OnInit {
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
+        this.languageService.addLocation('home');
     }
 
     ngOnInit() {
@@ -49,11 +47,10 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
-        this.features = this.featuresService.getFeatures();
     }
 
     changeLanguage(languageKey: string) {
-        this.languageService.changeLanguage(languageKey);
+      this.languageService.changeLanguage(languageKey);
     }
 
     collapseNavbar() {

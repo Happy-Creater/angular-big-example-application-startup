@@ -14,6 +14,6 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 
 TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
 
-declare const require: any;
+declare let require: any;
 const testsContext: any = require.context('./', true, /\.spec/);
 testsContext.keys().forEach(testsContext);

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Hero } from './hero.model';
 import { HeroService } from './hero.service';
-
 @Injectable()
 export class HeroPopupService {
     private isOpen = false;

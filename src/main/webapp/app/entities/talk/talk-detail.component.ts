@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager , JhiDataUtils } from 'ng-jhipster';
+import { EventManager , DataUtils } from 'ng-jhipster';
 
 import { Talk } from './talk.model';
 import { TalkService } from './talk.service';
@@ -17,8 +17,8 @@ export class TalkDetailComponent implements OnInit, OnDestroy {
     private eventSubscriber: Subscription;
 
     constructor(
-        private eventManager: JhiEventManager,
-        private dataUtils: JhiDataUtils,
+        private eventManager: EventManager,
+        private dataUtils: DataUtils,
         private talkService: TalkService,
         private route: ActivatedRoute
     ) {

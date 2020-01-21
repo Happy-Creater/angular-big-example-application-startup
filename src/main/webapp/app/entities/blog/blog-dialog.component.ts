@@ -4,13 +4,12 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Blog } from './blog.model';
 import { BlogPopupService } from './blog-popup.service';
 import { BlogService } from './blog.service';
 import { User, UserService } from '../../shared';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-blog-dialog',
@@ -26,20 +25,19 @@ export class BlogDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
+        private alertService: AlertService,
         private blogService: BlogService,
         private userService: UserService,
-        private eventManager: JhiEventManager
+        private eventManager: EventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.userService.query()
-            .subscribe((res: ResponseWrapper) => { this.users = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.userService.query().subscribe(
+            (res: Response) => { this.users = res.json(); }, (res: Response) => this.onError(res.json()));
     }
-
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -48,24 +46,19 @@ export class BlogDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.blog.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.blogService.update(this.blog), false);
+                this.blogService.update(this.blog));
         } else {
             this.subscribeToSaveResponse(
-                this.blogService.create(this.blog), true);
+                this.blogService.create(this.blog));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Blog>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Blog>) {
         result.subscribe((res: Blog) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Blog, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.blog.created'
-            : 'greatBigExampleApplicationApp.blog.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Blog) {
         this.eventManager.broadcast({ name: 'blogListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

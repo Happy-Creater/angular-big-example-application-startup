@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ClaimRebuttal } from './claim-rebuttal.model';
 import { ClaimRebuttalService } from './claim-rebuttal.service';
-
 @Injectable()
 export class ClaimRebuttalPopupService {
     private isOpen = false;

@@ -33,20 +33,8 @@ public class LoggingAspect {
     /**
      * Pointcut that matches all repositories, services and Web REST endpoints.
      */
-    @Pointcut("within(@org.springframework.stereotype.Repository *)" +
-        " || within(@org.springframework.stereotype.Service *)" +
-        " || within(@org.springframework.web.bind.annotation.RestController *)")
-    public void springBeanPointcut() {
-        // Method is empty as this is just a Pointcut, the implementations are in the advices.
-    }
-
-    /**
-     * Pointcut that matches all Spring beans in the application's main packages.
-     */
-    @Pointcut("within(org.exampleapps.greatbig.repository..*)"+
-        " || within(org.exampleapps.greatbig.service..*)"+
-        " || within(org.exampleapps.greatbig.web.rest..*)")
-    public void applicationPackagePointcut() {
+    @Pointcut("within(org.exampleapps.greatbig.repository..*) || within(org.exampleapps.greatbig.service..*) || within(org.exampleapps.greatbig.web.rest..*)")
+    public void loggingPointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }
 
@@ -56,7 +44,7 @@ public class LoggingAspect {
      * @param joinPoint join point for advice
      * @param e exception
      */
-    @AfterThrowing(pointcut = "applicationPackagePointcut() && springBeanPointcut()", throwing = "e")
+    @AfterThrowing(pointcut = "loggingPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         if (env.acceptsProfiles(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT)) {
             log.error("Exception in {}.{}() with cause = \'{}\' and exception = \'{}\'", joinPoint.getSignature().getDeclaringTypeName(),
@@ -75,7 +63,7 @@ public class LoggingAspect {
      * @return result
      * @throws Throwable throws IllegalArgumentException
      */
-    @Around("applicationPackagePointcut() && springBeanPointcut()")
+    @Around("loggingPointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         if (log.isDebugEnabled()) {
             log.debug("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),
@@ -90,7 +78,7 @@ public class LoggingAspect {
             return result;
         } catch (IllegalArgumentException e) {
             log.error("Illegal argument: {} in {}.{}()", Arrays.toString(joinPoint.getArgs()),
-                joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
+                    joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getSignature().getName());
 
             throw e;
         }

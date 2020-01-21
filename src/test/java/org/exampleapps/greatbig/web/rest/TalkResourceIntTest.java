@@ -209,7 +209,7 @@ public class TalkResourceIntTest {
 
     @Test
     @Transactional
-    public void getTalks() throws Exception {
+    public void getAllTalks() throws Exception {
         // Initialize the database
         talkRepository.saveAndFlush(talk);
 

@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
+import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
 import { Tag } from './tag.model';
 import { TagService } from './tag.service';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -28,9 +29,9 @@ export class TagComponent implements OnInit, OnDestroy {
 
     constructor(
         private tagService: TagService,
-        private alertService: JhiAlertService,
-        private eventManager: JhiEventManager,
-        private parseLinks: JhiParseLinks,
+        private alertService: AlertService,
+        private eventManager: EventManager,
+        private parseLinks: ParseLinks,
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
@@ -53,8 +54,8 @@ export class TagComponent implements OnInit, OnDestroy {
                 size: this.itemsPerPage,
                 sort: this.sort()
             }).subscribe(
-                (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
-                (res: ResponseWrapper) => this.onError(res.json)
+                (res: Response) => this.onSuccess(res.json(), res.headers),
+                (res: Response) => this.onError(res.json())
             );
             return;
         }
@@ -63,8 +64,8 @@ export class TagComponent implements OnInit, OnDestroy {
             size: this.itemsPerPage,
             sort: this.sort()
         }).subscribe(
-            (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: Response) => this.onSuccess(res.json(), res.headers),
+            (res: Response) => this.onError(res.json())
         );
     }
 

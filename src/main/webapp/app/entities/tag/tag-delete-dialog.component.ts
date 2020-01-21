@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { EventManager } from 'ng-jhipster';
 
 import { Tag } from './tag.model';
 import { TagPopupService } from './tag-popup.service';
@@ -19,8 +19,7 @@ export class TagDeleteDialogComponent {
     constructor(
         private tagService: TagService,
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
-        private eventManager: JhiEventManager
+        private eventManager: EventManager
     ) {
     }
 
@@ -36,7 +35,6 @@ export class TagDeleteDialogComponent {
             });
             this.activeModal.dismiss(true);
         });
-        this.alertService.success('greatBigExampleApplicationApp.tag.deleted', { param : id }, null);
     }
 }
 

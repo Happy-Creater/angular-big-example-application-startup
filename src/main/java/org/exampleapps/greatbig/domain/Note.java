@@ -20,9 +20,9 @@ public class Note implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    // @SequenceGenerator(name = "sequenceGenerator")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
+    private Long id;
 
     @Column(name = "text")
     private String text;
@@ -36,17 +36,12 @@ public class Note implements Serializable {
     @Column(name = "jhi_top")
     private Integer top;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public Note id(String id) {
-        this.id = id;
-        return this;
     }
 
     public String getText() {

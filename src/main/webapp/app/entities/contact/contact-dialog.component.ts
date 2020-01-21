@@ -4,7 +4,7 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { EventManager, AlertService } from 'ng-jhipster';
 
 import { Contact } from './contact.model';
 import { ContactPopupService } from './contact-popup.service';
@@ -22,9 +22,9 @@ export class ContactDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private alertService: JhiAlertService,
+        private alertService: AlertService,
         private contactService: ContactService,
-        private eventManager: JhiEventManager
+        private eventManager: EventManager
     ) {
     }
 
@@ -32,7 +32,6 @@ export class ContactDialogComponent implements OnInit {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
     }
-
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -41,24 +40,19 @@ export class ContactDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.contact.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.contactService.update(this.contact), false);
+                this.contactService.update(this.contact));
         } else {
             this.subscribeToSaveResponse(
-                this.contactService.create(this.contact), true);
+                this.contactService.create(this.contact));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Contact>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Contact>) {
         result.subscribe((res: Contact) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Contact, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.contact.created'
-            : 'greatBigExampleApplicationApp.contact.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Contact) {
         this.eventManager.broadcast({ name: 'contactListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

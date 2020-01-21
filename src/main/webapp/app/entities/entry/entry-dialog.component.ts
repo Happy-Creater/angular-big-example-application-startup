@@ -4,14 +4,13 @@ import { Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { EventManager, AlertService, DataUtils } from 'ng-jhipster';
 
 import { Entry } from './entry.model';
 import { EntryPopupService } from './entry-popup.service';
 import { EntryService } from './entry.service';
 import { Blog, BlogService } from '../blog';
 import { Tag, TagService } from '../tag';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-entry-dialog',
@@ -29,24 +28,23 @@ export class EntryDialogComponent implements OnInit {
 
     constructor(
         public activeModal: NgbActiveModal,
-        private dataUtils: JhiDataUtils,
-        private alertService: JhiAlertService,
+        private dataUtils: DataUtils,
+        private alertService: AlertService,
         private entryService: EntryService,
         private blogService: BlogService,
         private tagService: TagService,
-        private eventManager: JhiEventManager
+        private eventManager: EventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.blogService.query()
-            .subscribe((res: ResponseWrapper) => { this.blogs = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
-        this.tagService.query()
-            .subscribe((res: ResponseWrapper) => { this.tags = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.blogService.query().subscribe(
+            (res: Response) => { this.blogs = res.json(); }, (res: Response) => this.onError(res.json()));
+        this.tagService.query().subscribe(
+            (res: Response) => { this.tags = res.json(); }, (res: Response) => this.onError(res.json()));
     }
-
     byteSize(field) {
         return this.dataUtils.byteSize(field);
     }
@@ -56,7 +54,7 @@ export class EntryDialogComponent implements OnInit {
     }
 
     setFileData(event, entry, field, isImage) {
-        if (event && event.target.files && event.target.files[0]) {
+        if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
             if (isImage && !/^image\//.test(file.type)) {
                 return;
@@ -67,7 +65,6 @@ export class EntryDialogComponent implements OnInit {
             });
         }
     }
-
     clear() {
         this.activeModal.dismiss('cancel');
     }
@@ -76,24 +73,19 @@ export class EntryDialogComponent implements OnInit {
         this.isSaving = true;
         if (this.entry.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.entryService.update(this.entry), false);
+                this.entryService.update(this.entry));
         } else {
             this.subscribeToSaveResponse(
-                this.entryService.create(this.entry), true);
+                this.entryService.create(this.entry));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Entry>, isCreated: boolean) {
+    private subscribeToSaveResponse(result: Observable<Entry>) {
         result.subscribe((res: Entry) =>
-            this.onSaveSuccess(res, isCreated), (res: Response) => this.onSaveError(res));
+            this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     }
 
-    private onSaveSuccess(result: Entry, isCreated: boolean) {
-        this.alertService.success(
-            isCreated ? 'greatBigExampleApplicationApp.entry.created'
-            : 'greatBigExampleApplicationApp.entry.updated',
-            { param : result.id }, null);
-
+    private onSaveSuccess(result: Entry) {
         this.eventManager.broadcast({ name: 'entryListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);

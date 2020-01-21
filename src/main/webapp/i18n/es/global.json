@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "Great Big Example Application",
+        "title": "GreatBigExampleApplication",
         "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para mejorar su experiencia.",
         "menu": {
             "home": "Inicio",
@@ -15,29 +15,11 @@
                 "rebuttal": "Rebuttal",
                 "claimRebuttal": "Claim Rebuttal",
                 "blog": "Blog",
-                "entry": "Entry",
                 "tag": "Tag",
+                "entry": "Entry",
                 "message": "Message",
                 "talk": "Talk",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
-            },
-            "features": {
-                "bernie": "Bernie",
-                "books": "Libros",
-                "booksFind": "Encontrar Libros",
-                "chat": "Charla",
-                "contacts": "Contactos",
-                "counter": "Contador",
-                "dashboard": "Tablero",
-                "game": "Juego",
-                "heroes": "Héroes",
-                "main": "Módulo",
-                "message": "Mensajes",
-                "notes": "Notas",
-                "talks": "Discursos",
-                "todo": "Cosas que hacer",
-                "user": "Usuarios",
-                "wiki": "Buscar en Wikipedia"
             },
             "account": {
                 "main": "Cuenta",
@@ -86,7 +68,7 @@
                 }
             },
             "error": {
-                "dontmatch": "¡La contraseña y la confirmación de contraseña no coinciden!"
+                "dontmatch" : "¡La contraseña y la confirmación de contraseña no coinciden!"
             },
             "validate": {
                 "newpassword": {
@@ -109,10 +91,10 @@
             }
         },
         "field": {
-            "id": "ID"
+            "id" : "ID"
         },
         "ribbon": {
-            "dev": "Development"
+            "dev":"Development"
         }
     },
     "entity": {

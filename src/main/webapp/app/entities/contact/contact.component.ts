@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Response } from '@angular/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
+import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
 import { Contact } from './contact.model';
 import { ContactService } from './contact.service';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -20,8 +21,8 @@ contacts: Contact[];
 
     constructor(
         private contactService: ContactService,
-        private alertService: JhiAlertService,
-        private eventManager: JhiEventManager,
+        private alertService: AlertService,
+        private eventManager: EventManager,
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
@@ -33,17 +34,17 @@ contacts: Contact[];
             this.contactService.search({
                 query: this.currentSearch,
                 }).subscribe(
-                    (res: ResponseWrapper) => this.contacts = res.json,
-                    (res: ResponseWrapper) => this.onError(res.json)
+                    (res: Response) => this.contacts = res.json(),
+                    (res: Response) => this.onError(res.json())
                 );
             return;
        }
         this.contactService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.contacts = res.json;
+            (res: Response) => {
+                this.contacts = res.json();
                 this.currentSearch = '';
             },
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: Response) => this.onError(res.json())
         );
     }
 

@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { JhiDateUtils, JhiDataUtils, JhiEventManager } from 'ng-jhipster';
+import { DateUtils, DataUtils, EventManager } from 'ng-jhipster';
 import { GreatBigExampleApplicationTestModule } from '../../../test.module';
 import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { BlogDetailComponent } from '../../../../../../main/webapp/app/entities/blog/blog-detail.component';
@@ -22,18 +22,21 @@ describe('Component Tests', () => {
                 imports: [GreatBigExampleApplicationTestModule],
                 declarations: [BlogDetailComponent],
                 providers: [
-                    JhiDateUtils,
-                    JhiDataUtils,
+                    DateUtils,
+                    DataUtils,
                     DatePipe,
                     {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({id: 123})
                     },
                     BlogService,
-                    JhiEventManager
+                    EventManager
                 ]
-            }).overrideTemplate(BlogDetailComponent, '')
-            .compileComponents();
+            }).overrideComponent(BlogDetailComponent, {
+                set: {
+                    template: ''
+                }
+            }).compileComponents();
         }));
 
         beforeEach(() => {

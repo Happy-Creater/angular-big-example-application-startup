@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager  } from 'ng-jhipster';
+import { EventManager  } from 'ng-jhipster';
 
 import { ClaimRebuttal } from './claim-rebuttal.model';
 import { ClaimRebuttalService } from './claim-rebuttal.service';
@@ -17,7 +17,7 @@ export class ClaimRebuttalDetailComponent implements OnInit, OnDestroy {
     private eventSubscriber: Subscription;
 
     constructor(
-        private eventManager: JhiEventManager,
+        private eventManager: EventManager,
         private claimRebuttalService: ClaimRebuttalService,
         private route: ActivatedRoute
     ) {
