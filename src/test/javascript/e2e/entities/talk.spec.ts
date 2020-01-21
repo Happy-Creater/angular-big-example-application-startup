@@ -31,7 +31,7 @@ describe('Talk e2e test', () => {
         });
     });
 
-    it('should load create Talk dialog', function () {
+    it('should load create Talk dialog', () => {
         element(by.css('button.create-talk')).click().then(() => {
             const expectVal = /greatBigExampleApplicationApp.talk.home.createOrEditLabel/;
             element.all(by.css('h4.modal-title')).first().getAttribute('jhiTranslate').then((value) => {
@@ -42,7 +42,7 @@ describe('Talk e2e test', () => {
         });
     });
 
-    afterAll(function () {
+    afterAll(() => {
         accountMenu.click();
         logout.click();
     });

@@ -21,6 +21,23 @@
                 "talk": "Talk",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
+            "features": {
+                "bernie": "Bernie",
+                "booksFind": "Search for Books",
+                "books": "Book Collection",
+                "chat": "Chat",
+                "contacts": "Contacts",
+                "counter": "Counter",
+                "dashboard": "Dashboard",
+                "game": "Game",
+                "heroes": "Heroes",
+                "main": "Features",
+                "message": "Messages",
+                "notes": "Notes",
+                "talks": "Talks",
+                "user": "User",
+                "wiki": "Search Wikipedia"
+            },
             "account": {
                 "main": "Account",
                 "settings": "Settings",
@@ -94,8 +111,9 @@
             "id": "ID"
         },
         "ribbon": {
-            "dev":"Development"
-        }
+            "dev": "Development"
+        },
+        "item-count": "Showing {{first}} - {{second}} of {{total}} items."
     },
     "entity": {
         "action": {

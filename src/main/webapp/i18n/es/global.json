@@ -21,6 +21,24 @@
                 "talk": "Talk",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
+            "features": {
+                "bernie": "Bernie",
+                "books": "Libros",
+                "booksFind": "Encontrar Libros",
+                "chat": "Charla",
+                "contacts": "Contactos",
+                "counter": "Contador",
+                "dashboard": "Tablero",
+                "game": "Juego",
+                "heroes": "Héroes",
+                "main": "Módulo",
+                "message": "Mensajes",
+                "notes": "Notas",
+                "talks": "Discursos",
+                "todo": "Cosas que hacer",
+                "user": "Usuarios",
+                "wiki": "Buscar en Wikipedia"
+            },
             "account": {
                 "main": "Cuenta",
                 "settings": "Ajustes",
@@ -68,7 +86,7 @@
                 }
             },
             "error": {
-                "dontmatch" : "¡La contraseña y la confirmación de contraseña no coinciden!"
+                "dontmatch": "¡La contraseña y la confirmación de contraseña no coinciden!"
             },
             "validate": {
                 "newpassword": {
@@ -91,11 +109,12 @@
             }
         },
         "field": {
-            "id" : "ID"
+            "id": "ID"
         },
         "ribbon": {
-            "dev":"Development"
-        }
+            "dev": "Development"
+        },
+        "item-count": "Monstrando {{first}} - {{second}} de {{total}} artículos."
     },
     "entity": {
         "action": {

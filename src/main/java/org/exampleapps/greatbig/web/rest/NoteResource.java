@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class NoteResource {
     private final Logger log = LoggerFactory.getLogger(NoteResource.class);
 
     private static final String ENTITY_NAME = "note";
-        
+
     private final NoteRepository noteRepository;
 
     private final NoteSearchRepository noteSearchRepository;
@@ -52,14 +53,15 @@ public class NoteResource {
     @Timed
     public ResponseEntity<Note> createNote(@RequestBody Note note) throws URISyntaxException {
         log.debug("REST request to save Note : {}", note);
-        if (note.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new note cannot already have an ID")).body(null);
-        }
+        // if (note.getId() != null) {
+        //     return ResponseEntity.badRequest().headers(
+        //             HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new note cannot already have an ID"))
+        //             .body(null);
+        // }
         Note result = noteRepository.save(note);
         noteSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/notes/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
     }
 
     /**
@@ -68,7 +70,7 @@ public class NoteResource {
      * @param note the note to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated note,
      * or with status 400 (Bad Request) if the note is not valid,
-     * or with status 500 (Internal Server Error) if the note couldnt be updated
+     * or with status 500 (Internal Server Error) if the note couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/notes")
@@ -94,8 +96,7 @@ public class NoteResource {
     @Timed
     public List<Note> getAllNotes() {
         log.debug("REST request to get all Notes");
-        List<Note> notes = noteRepository.findAll();
-        return notes;
+        return noteRepository.findAll();
     }
 
     /**
@@ -106,7 +107,7 @@ public class NoteResource {
      */
     @GetMapping("/notes/{id}")
     @Timed
-    public ResponseEntity<Note> getNote(@PathVariable Long id) {
+    public ResponseEntity<Note> getNote(@PathVariable String id) {
         log.debug("REST request to get Note : {}", id);
         Note note = noteRepository.findOne(id);
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(note));
@@ -120,7 +121,7 @@ public class NoteResource {
      */
     @DeleteMapping("/notes/{id}")
     @Timed
-    public ResponseEntity<Void> deleteNote(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteNote(@PathVariable String id) {
         log.debug("REST request to delete Note : {}", id);
         noteRepository.delete(id);
         noteSearchRepository.delete(id);
@@ -131,17 +132,15 @@ public class NoteResource {
      * SEARCH  /_search/notes?query=:query : search for the note corresponding
      * to the query.
      *
-     * @param query the query of the note search 
+     * @param query the query of the note search
      * @return the result of the search
      */
     @GetMapping("/_search/notes")
     @Timed
     public List<Note> searchNotes(@RequestParam String query) {
         log.debug("REST request to search Notes for query {}", query);
-        return StreamSupport
-            .stream(noteSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+        return StreamSupport.stream(noteSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
-
 
 }
