@@ -51,10 +51,10 @@
     "swagger-ui": "3.0.13",
     "tether": "1.4.0",
     "webstomp-client": "1.0.6",
-    "zone.js": "0.8.11"
+    "zone.js": "0.8.12"
   },
   "devDependencies": {
-    "@angular/cli": "1.1.1",
+    "@angular/cli": "1.1.0",
     "@angular/compiler-cli": "4.2.0-beta.0",
     "@angularclass/hmr": "1.2.2",
     "@ngrx/store-devtools": "3.2.4",
