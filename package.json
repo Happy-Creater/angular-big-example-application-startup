@@ -55,7 +55,7 @@
     "zone.js": "0.8.12"
   },
   "devDependencies": {
-    "@angular/cli": "1.1.2",
+    "@angular/cli": "1.1.1",
     "@angular/compiler-cli": "4.2.0-beta.0",
     "@angularclass/hmr": "1.2.2",
     "@ngrx/store-devtools": "3.2.4",
@@ -79,7 +79,7 @@
     "exports-loader": "0.6.4",
     "extract-text-webpack-plugin": "2.1.1",
     "file-loader": "0.11.2",
-    "generator-jhipster": "4.5.3",
+    "generator-jhipster": "4.5.4",
     "generator-jhipster-bootstrap-material-design": "3.5.1",
     "generator-jhipster-bootswatch": "1.0.2",
     "generator-jhipster-darktheme": "0.0.7",
