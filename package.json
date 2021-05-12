@@ -49,7 +49,7 @@
     "sockjs-client": "1.1.4",
     "sortablejs": "1.6.0",
     "string_decoder": "~1.0.1",
-    "swagger-ui": "3.0.15",
+    "swagger-ui": "3.0.14",
     "tether": "1.4.0",
     "webstomp-client": "1.0.6",
     "zone.js": "0.8.12"
@@ -83,7 +83,7 @@
     "generator-jhipster-bootstrap-material-design": "3.5.1",
     "generator-jhipster-bootswatch": "1.0.2",
     "generator-jhipster-darktheme": "0.0.7",
-    "generator-jhipster-entity-audit": "2.4.0",
+    "generator-jhipster-entity-audit": "2.4.1",
     "generator-jhipster-fortune": "0.0.2",
     "generator-jhipster-google-analytics": "0.0.1",
     "generator-jhipster-material": "0.0.0",
